@@ -1,0 +1,27 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/eos-air-drops-app.js",
+  "sources": [
+    "images/**/*"
+  ],
+  "extraDependencies": [
+    "robots.txt",
+    "404.html",
+    "manifest.json",
+    "node_modules/@webcomponents/webcomponentsjs/*.js",
+    "!node_modules/@webcomponents/webcomponentsjs/gulpfile.js",
+    "node_modules/@webcomponents/webcomponentsjs/bundles/*.js"
+  ],
+  "builds": [
+    {
+      "preset": "es6-bundled"
+    }
+  ],
+  "moduleResolution": "node",
+  "npm": true,
+  "lint": {
+    "rules": [
+      "polymer-3"
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "eos-air-drops-app",
+  "description": "EOS AirDrops, Register your EOS acocunt today",
+  "version": "1.0.0",
+  "author": "@bkawk",
+  "license": "MIT",
+  "repository": "EOSBlox/airDropWebsite",
+  "scripts": {
+    "start": "polymer serve",
+    "lint": "polymer lint",
+    "test": "polymer test",
+    "build": "npm run deldocs && polymer build && npm run move && npm run delbuild",
+    "move": "mv ./build/es6-bundled/* ./docs/ && npm run delbuild",
+    "deldocs": "if [ -d 'docs/' ]; then rm -Rf docs/; fi && mkdir docs/",
+    "delbuild": "if [ -d 'build/' ]; then rm -Rf build/; fi",
+    "test:integration": "polymer build"
+  },
+  "dependencies": {
+    "@polymer/polymer": "^3.0.0"
+  },
+  "devDependencies": {
+    "@webcomponents/webcomponentsjs": "^2.0.2",
+    "wct-browser-legacy": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=8.0"
+  }
+}
