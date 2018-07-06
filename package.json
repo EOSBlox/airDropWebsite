@@ -17,7 +17,8 @@
   },
   "dependencies": {
     "@polymer/iron-ajax": "^3.0.0-pre.21",
-    "@polymer/polymer": "^3.0.0"
+    "@polymer/polymer": "^3.0.0",
+    "blox-backup": "^1.0.0"
   },
   "devDependencies": {
     "@webcomponents/webcomponentsjs": "^2.0.2",

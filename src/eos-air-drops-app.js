@@ -1,7 +1,7 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import { setPassiveTouchGestures, setRootPath } from '@polymer/polymer/lib/utils/settings.js';
 import '@polymer/iron-ajax/iron-ajax.js';
-
+import 'blox-backup';
 
 setPassiveTouchGestures(true);
 setRootPath(BloxAppGlobals.rootPath);
@@ -96,6 +96,9 @@ class EosAirDropsApp extends PolymerElement {
           color: #004D78;
           font-size:26px;
         }
+        .download-text:hover {
+          text-decoration:underline
+        }
         .created {
           padding: 40px 0 10px 0;
           color: #004D78;
@@ -141,19 +144,31 @@ class EosAirDropsApp extends PolymerElement {
           position: absolute;
           z-index: 0;
         }
-
-
+        .wide {
+          width: 752px
+        }
       </style>
 
       <iron-ajax
-        id="ironAjax"
+        id="ironAjaxPost"
         method="POST"
         url="https://eosairdrops.app/api"
         body='{{data}}'
         content-type="application/json"
         handle-as="text"
-        on-response="_handleResponse">
+        on-response="_complete">
       </iron-ajax>
+
+      <iron-ajax
+        id="ironAjaxGet"
+        method="GET"
+        url="https://eosairdrops.app/api"
+        content-type="application/json"
+        handle-as="text"
+        on-response="_download">
+      </iron-ajax>
+
+      <blox-backup id="bloxBackup"></blox-backup>
 
       <div class="container">
       {{json(lastResponse)}}
@@ -169,16 +184,29 @@ class EosAirDropsApp extends PolymerElement {
 
         <div class="action-container">
           <div class="group-action-container">
-            <input type="text" name="account" class="account" id="account" placeholder="EOS Account Name or Public Key" >
-            <label for="account">EOS Account Name or Public Key</label>
-            <input type="submit" value="Register" class="submit" on-click="_register">
+            <template is="dom-if" if="{{initial}}">
+              <input type="text" name="account" class="account" id="account" placeholder="EOS Account Name or Public Key" >
+              <label for="account">EOS Account Name or Public Key</label>
+              <input type="submit" value="Register" class="submit" on-click="_register">
+            </template>
+            <template is="dom-if" if="{{loading}}">
+              <input type="submit" value="Finding your account..." class="submit wide">
+            </template>
+            <template is="dom-if" if="{{complete}}">
+              <input type="submit" value="Success! You are registered!" class="submit wide">
+            </template>
           </div>
+          <template is="dom-if" if="{{error}}">
+            <div class="group-action-container">
+              <p>Sorry, that's not right, please try again.</p>
+            </div>
+          </template>
         </div>
 
         <div class="download-container">
           <div class="group-footer-container">
-            <div><img src="images/csv-download.svg" alt="CSV file available for download"></div>
-            <div class="download-text">Download the complete list for your airdrop</div>
+            <div><img src="images/csv-download.svg" alt="CSV file available for download" on-click="_getData"></div>
+            <div class="download-text" on-click="_getData">Download the complete list for your airdrop</div>
             <div class="created">Created with love by EOS Blox as a gift to the EOS community</div>
           </div>
         </div>
@@ -190,19 +218,55 @@ class EosAirDropsApp extends PolymerElement {
     return {
       data: {
         type: Object,
+      },
+      initial: {
+        type: Boolean,
+        value: true
+      },
+      loading: {
+        type: Boolean,
+        value: false
+      },
+      complete: {
+        type: Boolean,
+        value: false
+      },
+      error: {
+        type: Boolean,
+        value: false
       }
     };
   }
 
   _register(){
+    this.error = false;
     const account = this.shadowRoot.querySelector('#account').value
     if (account.length == 12 || account.length == 53){
       this.data = {account};
-      this.$.ironAjax.generateRequest();
-    } 
+      this.$.ironAjaxPost.generateRequest();
+      this.initial = false;
+      this.loading = true;
+    } else {
+      this.error = true;
+    }
   }
-  _handleResponse(response){
-    console.log(response.detail.__data.response)
+  _complete(response){
+    if (JSON.parse(response.detail.__data.response).publicKey){
+      this.loading = false;
+      this.complete = true;
+      this.error = false;
+    } else {
+      this.loading = false;
+      this.complete = false;
+      this.initial = true;
+      this.error = true;
+    }
+  }
+  _getData(){
+    this.$.ironAjaxGet.generateRequest();
+  }
+  _download(response){
+    this.$.bloxBackup.backup('eosAirDrops', response.detail.__data.response, 'json')
   }
 
 } window.customElements.define('eos-air-drops-app', EosAirDropsApp);
