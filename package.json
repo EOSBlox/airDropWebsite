@@ -9,17 +9,19 @@
     "start": "polymer serve",
     "lint": "polymer lint",
     "test": "polymer test",
-    "build": "npm run deldocs && polymer build && npm run move && npm run delbuild",
+    "build": "npm run deldocs && polymer build && npm run move && npm run delbuild && firebase deploy",
     "move": "mv ./build/es6-bundled/* ./docs/ && npm run delbuild",
     "deldocs": "if [ -d 'docs/' ]; then rm -Rf docs/; fi && mkdir docs/",
     "delbuild": "if [ -d 'build/' ]; then rm -Rf build/; fi",
     "test:integration": "polymer build"
   },
   "dependencies": {
+    "@polymer/iron-ajax": "^3.0.0-pre.21",
     "@polymer/polymer": "^3.0.0"
   },
   "devDependencies": {
     "@webcomponents/webcomponentsjs": "^2.0.2",
+    "firebase-tools": "^3.19.3",
     "wct-browser-legacy": "^1.0.0"
   },
   "engines": {

@@ -1,5 +1,6 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import { setPassiveTouchGestures, setRootPath } from '@polymer/polymer/lib/utils/settings.js';
+import '@polymer/iron-ajax/iron-ajax.js';
 
 
 setPassiveTouchGestures(true);
@@ -144,8 +145,18 @@ class EosAirDropsApp extends PolymerElement {
 
       </style>
 
+      <iron-ajax
+        id="ironAjax"
+        method="POST"
+        url="https://eosairdrops.app/api"
+        body='{{data}}'
+        content-type="application/json"
+        handle-as="text"
+        on-response="_handleResponse">
+      </iron-ajax>
+
       <div class="container">
-        
+      {{json(lastResponse)}}
         <div class="header-container">
           <div class="group-header-container">
             <div class="icon-container"><img src="images/airdrops-icon.png" alt="Picture of a crate with a parachute attached"></div>
@@ -177,92 +188,21 @@ class EosAirDropsApp extends PolymerElement {
   }
   static get properties() {
     return {
-      prop1: {
-        type: String,
-        value: 'eos-air-drops-app'
+      data: {
+        type: Object,
       }
     };
   }
 
   _register(){
     const account = this.shadowRoot.querySelector('#account').value
-    if (account.length == 12){
-      this._accountName(account)
-      .then((account) => {
-        this._saveAccount(account);
-      }) 
-    } else if (account.length == 53){
-      this._publicKey(account)
-      .then((account) => {
-        this._saveAccount(account);
-      }) 
-    } else {
-      this.error = true;
-    }
+    if (account.length == 12 || account.length == 53){
+      this.data = {account};
+      this.$.ironAjax.generateRequest();
+    } 
   }
-
-  _connect(){
-    return new Promise((resolve, reject) => {
-      const config = {
-        keyProvider: '', 
-        httpEndpoint: 'https://api.eosrio.io',
-        broadcast: true,
-        sign: true,
-        chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
-        expireInSeconds: 30
-      }
-      this.eos = Eos(config)
-      resolve();
-    })
-  }
-
-  _accountName(accountName){
-    return new Promise((resolve, reject) => {
-      this._connect()
-      .then(()=>{
-        return this.eos.getAccount({"account_name":accountName})
-      })
-      .then((account)=>{
-        const publicKey = account.permissions[0].required_auth.keys[0].key;
-        resolve([accountName, publicKey]);
-      })
-      .catch((error)=>{
-        this.error = error;
-        reject(error);
-      });
-    });
-  }
-
-  _publicKey(publicKey){
-    return new Promise((resolve, reject) => {
-      this._connect()
-      .then(()=>{
-        return this.eos.getKeyAccounts({"public_key": publicKey})
-      })
-      .then((accountName)=>{
-        console.log(accountName)
-        resolve([accountName, publicKey]);
-      })
-      .catch((error)=>{
-        this.error = error;
-        reject(error);
-      });
-    });
-  }
-
-
-  _saveAccount(){
-    return new Promise((resolve, reject) => {
-      var config = {
-        apiKey: "<API_KEY>",
-        authDomain: "<PROJECT_ID>.firebaseapp.com",
-        databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
-        projectId: "<PROJECT_ID>",
-        storageBucket: "<BUCKET>.appspot.com",
-        messagingSenderId: "<SENDER_ID>",
-      };
-      firebase.initializeApp(config);
-    })
+  _handleResponse(response){
+    console.log(response.detail.__data.response)
   }
 
 } window.customElements.define('eos-air-drops-app', EosAirDropsApp);
