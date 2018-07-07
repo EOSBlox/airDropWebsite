@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["index.html","dfd906773ec334936623a2c50ddb4751"],["manifest.json","519ca848c09d53765bce097626eac048"],["src/eos-air-drops-app.js","34538e85bc399a09d16d16e82ea532a0"]];
+var precacheConfig = [["index.html","ef66af50c263ec279d9ae88081562ced"],["manifest.json","519ca848c09d53765bce097626eac048"],["src/eos-air-drops-app.js","e1043cde8cfcc08b2ef11a5f18eb64da"]];
 var cacheName = 'sw-precache-v3--' + (self.registration ? self.registration.scope : '');
 
 

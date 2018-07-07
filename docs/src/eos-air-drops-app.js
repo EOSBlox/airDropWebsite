@@ -4,51 +4,242 @@ define(["exports","meta"],function(_exports,meta){"use strict";Object.defineProp
           display: block;
         }
       </style>
-    `}static get properties(){return{filename:{type:String,observer:"_start"},data:{type:String},suffix:{type:String},error:{type:String,notify:!0,reflectToAttribute:!0}}}_start(){if(this.filename&&this.data&&this.suffix){this.backup(this.filename,this.data,this.suffix)}}backup(name,data,suffix){const filename=`${name}_${+new Date}.${suffix}`,popup=window.document.createElement("a");popup.target="_blank";popup.href=window.URL.createObjectURL(new Blob([data],{type:"text/csv"}));popup.download=filename;document.body.appendChild(popup);popup.click();document.body.removeChild(popup)}}window.customElements.define("blox-backup",BloxBackup);setPassiveTouchGestures(!0);setRootPath(BloxAppGlobals.rootPath);class EosAirDropsApp extends PolymerElement{static get template(){return html`
-      <style>
+    `}static get properties(){return{filename:{type:String,observer:"_start"},data:{type:String},suffix:{type:String},error:{type:String,notify:!0,reflectToAttribute:!0}}}_start(){if(this.filename&&this.data&&this.suffix){this.backup(this.filename,this.data,this.suffix)}}backup(name,data,suffix){const filename=`${name}_${+new Date}.${suffix}`,popup=window.document.createElement("a");popup.target="_blank";popup.href=window.URL.createObjectURL(new Blob([data],{type:"text/csv"}));popup.download=filename;document.body.appendChild(popup);popup.click();document.body.removeChild(popup)}}window.customElements.define("blox-backup",BloxBackup);const $_documentContainer=document.createElement("template");$_documentContainer.innerHTML=`<dom-module id="shared-styles">
+  <template>
+    <style>
+    
+.la-ball-fall,
+.la-ball-fall > div {
+    position: relative;
+    -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+.la-ball-fall {
+    display: block;
+    font-size: 0;
+    color: #fff;
+}
+
+.la-ball-fall.la-dark {
+    color: #333;
+}
+
+.la-ball-fall > div {
+    display: inline-block;
+    float: none;
+    background-color: currentColor;
+    border: 0 solid currentColor;
+}
+
+.la-ball-fall {
+    width: 54px;
+    height: 18px;
+}
+
+.la-ball-fall > div {
+    width: 10px;
+    height: 10px;
+    margin: 4px;
+    border-radius: 100%;
+    opacity: 0;
+    -webkit-animation: ball-fall 1s ease-in-out infinite;
+      -moz-animation: ball-fall 1s ease-in-out infinite;
+        -o-animation: ball-fall 1s ease-in-out infinite;
+            animation: ball-fall 1s ease-in-out infinite;
+}
+
+.la-ball-fall > div:nth-child(1) {
+    -webkit-animation-delay: -200ms;
+      -moz-animation-delay: -200ms;
+        -o-animation-delay: -200ms;
+            animation-delay: -200ms;
+}
+
+.la-ball-fall > div:nth-child(2) {
+    -webkit-animation-delay: -100ms;
+      -moz-animation-delay: -100ms;
+        -o-animation-delay: -100ms;
+            animation-delay: -100ms;
+}
+
+.la-ball-fall > div:nth-child(3) {
+    -webkit-animation-delay: 0ms;
+      -moz-animation-delay: 0ms;
+        -o-animation-delay: 0ms;
+            animation-delay: 0ms;
+}
+
+.la-ball-fall.la-sm {
+    width: 26px;
+    height: 8px;
+}
+
+.la-ball-fall.la-sm > div {
+    width: 4px;
+    height: 4px;
+    margin: 2px;
+}
+
+.la-ball-fall.la-2x {
+    width: 108px;
+    height: 36px;
+}
+
+.la-ball-fall.la-2x > div {
+    width: 20px;
+    height: 20px;
+    margin: 8px;
+}
+
+.la-ball-fall.la-3x {
+    width: 162px;
+    height: 54px;
+}
+
+.la-ball-fall.la-3x > div {
+    width: 30px;
+    height: 30px;
+    margin: 12px;
+}
+
+/*
+ * Animation
+ */
+@-webkit-keyframes ball-fall {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(-145%);
+                transform: translateY(-145%);
+    }
+    10% {
+        opacity: .5;
+    }
+    20% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
+    }
+    80% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
+    }
+    90% {
+        opacity: .5;
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translateY(145%);
+                transform: translateY(145%);
+    }
+}
+@-moz-keyframes ball-fall {
+    0% {
+        opacity: 0;
+        -moz-transform: translateY(-145%);
+            transform: translateY(-145%);
+    }
+    10% {
+        opacity: .5;
+    }
+    20% {
+        opacity: 1;
+        -moz-transform: translateY(0);
+            transform: translateY(0);
+    }
+    80% {
+        opacity: 1;
+        -moz-transform: translateY(0);
+            transform: translateY(0);
+    }
+    90% {
+        opacity: .5;
+    }
+    100% {
+        opacity: 0;
+        -moz-transform: translateY(145%);
+            transform: translateY(145%);
+    }
+}
+@-o-keyframes ball-fall {
+    0% {
+        opacity: 0;
+        -o-transform: translateY(-145%);
+          transform: translateY(-145%);
+    }
+    10% {
+        opacity: .5;
+    }
+    20% {
+        opacity: 1;
+        -o-transform: translateY(0);
+          transform: translateY(0);
+    }
+    80% {
+        opacity: 1;
+        -o-transform: translateY(0);
+          transform: translateY(0);
+    }
+    90% {
+        opacity: .5;
+    }
+    100% {
+        opacity: 0;
+        -o-transform: translateY(145%);
+          transform: translateY(145%);
+    }
+}
+@keyframes ball-fall {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(-145%);
+          -moz-transform: translateY(-145%);
+            -o-transform: translateY(-145%);
+                transform: translateY(-145%);
+    }
+    10% {
+        opacity: .5;
+    }
+    20% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+          -moz-transform: translateY(0);
+            -o-transform: translateY(0);
+                transform: translateY(0);
+    }
+    80% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+          -moz-transform: translateY(0);
+            -o-transform: translateY(0);
+                transform: translateY(0);
+    }
+    90% {
+        opacity: .5;
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translateY(145%);
+          -moz-transform: translateY(145%);
+            -o-transform: translateY(145%);
+                transform: translateY(145%);
+    }
+}
+</style>
+</template>
+</dom-module>`;document.head.appendChild($_documentContainer.content);setPassiveTouchGestures(!0);setRootPath(BloxAppGlobals.rootPath);class EosAirDropsApp extends PolymerElement{static get template(){return html`
+      <style include="shared-styles">
         :host {
           display: block;
-          height: 100%;
-          margin: 0;
-          background: url("images/clouds.svg");
-          background-attachment:fixed;
-          background-position:center bottom;
-          background-size: fit;
-          background-repeat: no-repeat;
-          background-size: 2200px 406px;
-          background-repeat: repeat-x;
-          min-width: 900px;
-          min-height: 900px;
-        }
-        .container {
-          display: flex;
-          flex-direction: column;
-          height: 100%;
-          flex-wrap: nowrap;
-        }
-        .header-container {
-          flex: 1;
-        }
-        .action-container {
-          flex: 1;
-        }
-        .download-container {
-          min-height:400px;
         }
 
-        .title-container {
-          max-width: 854px;
-          margin: 0 auto;
-          display: flex;
-          flex-wrap: wrap;
-          flex: 1;
-        }
         .heavy{
           font-weight: 800;
         }
-
         .icon-container{
-          max-width: 200px;
+          max-width: 190px;
           flex: 1;
           margin-top: 20px;
         }
@@ -63,30 +254,11 @@ define(["exports","meta"],function(_exports,meta){"use strict";Object.defineProp
           font-style: normal;
           margin:0;
         }
-        .group-header-container {
-          padding:50px 20px;
-          max-width: 854px;
+        .downloading{
+          height:90px;
+          display:block;
           margin: 0 auto;
-          display: flex;
-          flex:1;
-          flex-wrap: wrap;
-        }
-
-
-        .download-container img {
-          width: 50px;
-          cursor: pointer;
-          padding-bottom: 20px;
-        }
-        .group-footer-container{
-          display: flex;
-          flex-wrap: wrap;
-          flex-direction: column;
-          height: 100%;
-          min-height:400px;
-          width: 100%;
-          align-items: center;
-          justify-content: center;
+          height: 229px;
         }
         .download-text {
           color: #004D78;
@@ -96,15 +268,52 @@ define(["exports","meta"],function(_exports,meta){"use strict";Object.defineProp
           text-decoration:underline
         }
         .created {
-          padding: 40px 0 10px 0;
           color: #004D78;
           font-size:11px;
         }
-        .group-action-container {
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          justify-content: center;
+        a {
+          color: #0A82CB
+        }
+        .la-ball-fall {
+          color: #078CD8;
+          margin: 0 auto;
+          padding-top: 80px;
+        }
+        .la-header {
+          padding: 50px 20px;
+          text-align: center;
+          display:flex;
+        }
+        .la-register {
+          text-align: center;
+          padding: 20px;
+        }
+        .la-error {
+          text-align: center;
+          min-height: 22px;
+          padding: 0 20px 0 20px;
+        }
+        .la-clouds {
+          padding: 20px;
+          text-align: center;
+          margin: 0;
+          background: url("images/clouds.svg");
+          background-position:center bottom;
+          background-size: fit;
+          background-repeat: no-repeat;
+          background-size: 2200px 406px;
+          background-repeat: repeat-x;
+          height: 380px;
+          overflow:hidden;
+        }
+        .la-body {
+          padding: 20px;
+          background-color: #CCECFE;
+          height:100%;
+        }
+        .cloud-spacer{
+          width: 100%;
+          height: 100px;
         }
         .account {
           background-image: linear-gradient(-270deg, #DDF1FB 0%, #B9DEF5 100%);
@@ -116,10 +325,10 @@ define(["exports","meta"],function(_exports,meta){"use strict";Object.defineProp
           font-size: 25px;
           color: #003453;
           text-align: left;
-          padding-left:30px;
           outline:0;
           margin-right:20px;
           z-index: 10;
+          text-indent: 20px;
         }
         .submit{
           background-image: linear-gradient(-180deg, #DDF1FB 0%, #B9DEF5 100%);
@@ -136,13 +345,102 @@ define(["exports","meta"],function(_exports,meta){"use strict";Object.defineProp
           text-shadow: 0 2px 1px #FFFFFF;
           cursor: pointer;
         }
-        label {
-          position: absolute;
-          z-index: 0;
-        }
         .wide {
           width: 752px
         }
+        .la-clouds img {
+          width: 70px;
+          cursor: pointer;
+          padding-bottom: 96px;
+          padding-top: 35px;
+        }
+        .title-container {
+          max-width: 600px;
+          display: flex;
+          flex-wrap: wrap;
+          flex: 1;
+        }
+        .center {
+          margin: 0 auto;
+          display: flex;
+        }
+        .fade{
+          background: -moz-linear-gradient(top, #015f97 0%, #0999ea 100%);
+          background: -webkit-linear-gradient(top, #015f97 0%,#0999ea 100%);
+          background: linear-gradient(to bottom, #015f97 0%,#0999ea 100%);
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#015f97', endColorstr='#0999ea',GradientType=0 );
+        }
+        .icon-container img {
+                max-width: 160px;
+            }
+
+        @media screen and (max-width: 800px) {
+            .account {
+              width: 100%;
+            }
+            .submit {
+              margin-top:20px;
+              width: 100%;
+              font-size:20px;
+            }
+            .la-clouds img {
+              width: 60px;
+            }
+            .download-text {
+              font-size: 20px;
+            }
+            .la-clouds {
+              background-size: 1626px 300px;
+              height: 286px;
+            }
+            .la-clouds img {
+              padding-bottom: 66px;
+              padding-top: 0;
+            }
+            .icon-container {
+                max-width: 100px;
+                padding-right: 20px;
+            }
+            .icon-container img {
+                max-width: 100px;
+            }
+            h1 {
+              font-size: 64px;
+            }
+            h2 {
+              font-size: 22px;
+            }
+            
+        }
+        @media screen and (max-width: 412px) {
+            .submit {
+              font-size:15px
+            }
+            .account {
+              font-size:16px
+            }
+            .la-clouds img {
+              width: 50px;
+              padding-bottom: 33px;
+              padding-top: 0;
+            }
+            .download-text {
+              font-size: 18px;
+            }
+            h1 {
+              font-size: 64px;
+            }
+            h2 {
+              font-size: 22px;
+            }
+            .center {
+              display: block
+            }
+            .icon-container{
+              margin: 0 auto;
+            }
+        }
+
       </style>
 
       <iron-ajax
@@ -165,11 +463,9 @@ define(["exports","meta"],function(_exports,meta){"use strict";Object.defineProp
       </iron-ajax>
 
       <blox-backup id="bloxBackup"></blox-backup>
-
-      <div class="container">
-      {{json(lastResponse)}}
-        <div class="header-container">
-          <div class="group-header-container">
+<div class="fade">
+        <div class="la-header">
+          <div class="center">
             <div class="icon-container"><img src="images/airdrops-icon.png" alt="Picture of a crate with a parachute attached"></div>
             <div class="title-container">
               <h1>EOS <span class="heavy"> AirDrops</span></h1>
@@ -177,35 +473,39 @@ define(["exports","meta"],function(_exports,meta){"use strict";Object.defineProp
             </div>
           </div>
         </div>
-
-        <div class="action-container">
-          <div class="group-action-container">
-            <template is="dom-if" if="{{initial}}">
-              <input type="text" name="account" class="account" id="account" placeholder="EOS Account Name or Public Key" >
-              <label for="account">EOS Account Name or Public Key</label>
-              <input type="submit" value="Register" class="submit" on-click="_register">
-            </template>
-            <template is="dom-if" if="{{loading}}">
-              <input type="submit" value="Finding your account..." class="submit wide">
-            </template>
-            <template is="dom-if" if="{{complete}}">
-              <input type="submit" value="Success! You are registered!" class="submit wide">
-            </template>
-          </div>
-          <template is="dom-if" if="{{error}}">
-            <div class="group-action-container">
-              <p>Sorry, that's not right, please try again.</p>
-            </div>
+        <div class="la-register">
+          <template is="dom-if" if="{{initial}}">
+            <input type="text" name="account" class="account" id="account" placeholder="EOS Account Name or Public Key" >
+            <input type="submit" value="Register" class="submit" on-click="_register">
+          </template>
+          <template is="dom-if" if="{{loading}}">
+            <input type="submit" value="Finding your account..." class="submit wide">
+          </template>
+          <template is="dom-if" if="{{complete}}">
+            <input type="submit" value="Success! You are now registered!" class="submit wide">
           </template>
         </div>
-
-        <div class="download-container">
-          <div class="group-footer-container">
-            <div><img src="images/csv-download.svg" alt="CSV file available for download" on-click="_getData"></div>
-            <div class="download-text" on-click="_getData">Download the complete list for your airdrop</div>
-            <div class="created">Created with love by EOS Blox as a gift to the EOS community</div>
-          </div>
+        <div class="la-error">
+          <template is="dom-if" if="{{error}}">
+              <p>Sorry, that's not right, please try again.</p>
+          </template>
         </div>
+        <div class="la-clouds">
+          <div class="cloud-spacer"></div>
+          <template is="dom-if" if="{{!downloading}}">
+            <img src="images/json-download.svg" alt="CSV file available for download" on-click="_getData">
+          </template>
+          <template is="dom-if" if="{{downloading}}">
+            <div class="downloading">
+              <div class="la-ball-fall la-2x"><div></div><div></div><div></div></div>
+            </div>
+          </template>
+          <div class="download-text" on-click="_getData">Download the complete list for your airdrop</div>
+          <div class="created">Created with love by <a href="http://www.eosblox.com" target="_blank">EOS Blox</a> as a gift to the EOS community</div>
+        </div>
+</div>
 
-      </div>
-    `}static get properties(){return{data:{type:Object},initial:{type:Boolean,value:!0},loading:{type:Boolean,value:!1},complete:{type:Boolean,value:!1},error:{type:Boolean,value:!1}}}_register(){this.error=!1;const account=this.shadowRoot.querySelector("#account").value;if(12==account.length||53==account.length){this.data={account};this.$.ironAjaxPost.generateRequest();this.initial=!1;this.loading=!0}else{this.error=!0}}_complete(response){if(JSON.parse(response.detail.__data.response).publicKey){this.loading=!1;this.complete=!0;this.error=!1}else{this.loading=!1;this.complete=!1;this.initial=!0;this.error=!0}}_getData(){this.$.ironAjaxGet.generateRequest()}_download(response){this.$.bloxBackup.backup("eosAirDrops",response.detail.__data.response,"json")}}window.customElements.define("eos-air-drops-app",EosAirDropsApp)});
+        <div class="la-body">
+
+        </div>
+    `}static get properties(){return{data:{type:Object},initial:{type:Boolean,value:!0},loading:{type:Boolean,value:!1},complete:{type:Boolean,value:!1},error:{type:Boolean,value:!1},downloading:{type:Boolean,value:!1}}}_register(){this.error=!1;const account=this.shadowRoot.querySelector("#account").value;if(12==account.length||53==account.length){this.data={account};this.$.ironAjaxPost.generateRequest();this.initial=!1;this.loading=!0}else{this.error=!0}}_complete(response){if(JSON.parse(response.detail.__data.response).publicKey){this.loading=!1;this.complete=!0;this.error=!1}else{this.loading=!1;this.complete=!1;this.initial=!0;this.error=!0}}_getData(){this.$.ironAjaxGet.generateRequest();this.downloading=!0}_download(response){this.downloading=!1;this.$.bloxBackup.backup("eosAirDrops",response.detail.__data.response,"json")}}window.customElements.define("eos-air-drops-app",EosAirDropsApp)});
